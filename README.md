@@ -68,57 +68,74 @@ Algorithm:
 3. Insert a Start Node into the Queue. 
 4. Find its Successors Or neighbors and Check whether the node is visited or not. 
 5. If Not Visited, add it to the Queue. Else Continue. 
-6. Iterate steps 4 and 5 until all nodes get visited, and there are no more unvisited nodes. 
-Program: 
-from collections import deque 
-from collections import defaultdict 
-''' 
-V E 
-FOR EVERY EDGE 
-U V 
-7 9 
-A B 
-A C  
-A F 
-C E 
-C F 
-C D 
-D E  
-D G 
-G F 
-''' 
-def bfs(graph,start,visited,path): 
-queue = deque() 
-path.append(start) 
-queue.append(start) 
-visited[start] = True 
-while len(queue) != 0: 
-tmpnode = queue.popleft() 
-for neighbour in graph[tmpnode]: 
-if visited[neighbour] == False: 
-path.append(neighbour) 
-queue.append(neighbour) 
-visited[neighbour] = True 
-return path 
-graph = defaultdict(list) 
-v,e = map(int,input().split()) 
-for i in range(e): 
-u,v = map(str,input().split()) 
-graph[u].append(v) 
-graph[v].append(u) 
-start = '0' 
-#start=’A’ 
-path = [] 
-visited = defaultdict(bool) 
-traversedpath = bfs(graph,start,visited,path) 
-print(traversedpath) 
-Sample Input : 
-5 6 
-0 1 
-0 2 
-1 2 
-1 3 
-2 4 
-3 4 
-Sample Output: 
-['0', '1', '2', '3', '4'] 
+6. Iterate steps 4 and 5 until all nodes get visited, and there are no more unvisited nodes.
+
+## PROGRAM
+
+```
+from collections import deque, defaultdict
+
+def bfs(g,s):
+    v=defaultdict(bool); q=deque([s]); p=[s]; v[s]=1
+    while q:
+        n=q.popleft()
+        for i in g[n]:
+            if not v[i]:
+                v[i]=1; q.append(i); p.append(i)
+    return p
+
+g=defaultdict(list)
+v,e=map(int,input().split())
+for _ in range(e):
+    a,b=input().split()
+    g[a].append(b); g[b].append(a)
+
+s='0' if '0' in g else 'A'
+print(bfs(g,s))
+```
+<hr>
+<h3>Sample Input</h3>
+<hr>
+7 9 <BR>
+A B <BR>
+A C <BR>
+A F <BR>
+C E <BR>
+C F <BR>
+C D <BR>
+D E <BR>
+D G <BR>
+G F <BR>
+<hr>
+<h3>Sample Output</h3>
+<hr>
+['A', 'B', 'C', 'F', 'E', 'D', 'G']
+
+## OUTPUT
+<img width="572" height="408" alt="image" src="https://github.com/user-attachments/assets/3549478e-03ed-4433-8c1f-3a3b80881410" />
+
+
+<hr>
+<h3>Sample Input</h3>
+<hr>
+5 6 <BR>
+0 1 <BR>
+0 2 <BR>
+1 2 <BR>
+1 3 <BR>
+2 4 <BR>
+3 4 <BR>
+<hr>
+<h3>Sample Output</h3>
+<hr>
+['0', '1', '2', '3', '4']
+<hr>
+
+## OUTPUT
+<img width="497" height="317" alt="image" src="https://github.com/user-attachments/assets/d1b178ac-6db5-4957-be8d-020f4a95435f" />
+
+
+
+<h3>Result:</h3>
+<hr>
+Thus,a Graph was constructed and implementation of Breadth First Search for the same graph was done successfully.
